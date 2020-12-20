@@ -1,15 +1,15 @@
 import express, { NextFunction, Request, Response } from "express";
-import indexRouter from "src/routes/index";
-import usersRouter from "src/routes/users";
 import logger from "morgan";
 import cookieParser from "cookie-parser";
 import path from "path";
 import createError from "http-errors";
+import indexRouter from "./routes/index";
+import usersRouter from "./routes/users";
 
 const app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "jade");
 
 /**
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // ヘッダー情報からcookie情報を拾ってくれる
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

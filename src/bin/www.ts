@@ -4,8 +4,8 @@
  * Module dependencies.
  */
 
-import app from "src/app";
 import http from "http";
+import app from "../app";
 
 const debug = require("debug")("my-app:my-module");
 
@@ -37,7 +37,6 @@ server.on("listening", onListening);
 
 function normalizePort(val: any) {
   const port = parseInt(val, 10);
-
   if (isNaN(port)) {
     // named pipe
     return val;
