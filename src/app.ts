@@ -3,8 +3,8 @@ import logger from "morgan";
 import cookieParser from "cookie-parser";
 import path from "path";
 import createError from "http-errors";
-import indexRouter from "./routes/index";
-import usersRouter from "./routes/users";
+import index from "./api/v1/index";
+import users from "./api/v1/routes/users";
 
 const app = express();
 
@@ -24,8 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+// routerで設定したDirをv1としてsetする
+app.use("/api", index);
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
