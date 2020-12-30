@@ -1,8 +1,8 @@
 import express from "express";
-import router from "./routes/router";
+import users from "./routes/users";
 
 const index = express.Router();
 
-index.use("/v1", router);
+index.use("users", users);
 
 export default index;
