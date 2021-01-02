@@ -1,39 +1,43 @@
-import express, { NextFunction, Request, Response } from "express";
-import logger from "morgan";
-import cookieParser from "cookie-parser";
-import path from "path";
-import createError from "http-errors";
-import index from "../functions/v1/index";
-import users from "../functions/v1/routes/users";
+import * as express from "express";
+import * as cookieParser from "cookie-parser";
+import index from "./api/v1/index";
+import * as createError from "http-errors";
+import * as httpStatus from "http-status-codes";
+import * as functions from "firebase-functions";
 
 const app = express();
-
-// view engine setup
-app.set("views", path.join(__dirname, "../views"));
-app.set("view engine", "jade");
 
 /**
  *  ミドルウェアのマウント
  *  express.json()はjsonを扱えるようにしている
  *  express.urlencoded(): URL解析
  * */
-app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // ヘッダー情報からcookie情報を拾ってくれる
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../public")));
-
+app.get("/hello", (req: express.Request, res: express.Response) => {
+  return res.status(httpStatus.StatusCodes.OK).send("Hello world");
+});
 app.use("/api/v1", index);
 
 // catch 404 and forward to error handler
-app.use(function (req: Request, res: Response, next: NextFunction) {
+app.use(function (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
   // errorオブジェクトを作ってくれるミドルウェア
   next(createError(404));
 });
 
 // error handler
-app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
+app.use(function (
+  err: any,
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
   // µset locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -43,4 +47,6 @@ app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
   res.render("error");
 });
 
-export default app;
+exports.app = functions.https.onRequest(app);
+
+// 明日は関数の分割をするところから

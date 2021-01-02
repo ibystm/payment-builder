@@ -1,4 +1,4 @@
-import express from "express";
+import * as express from "express";
 import users from "./routes/users";
 
 const index = express.Router();

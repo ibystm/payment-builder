@@ -62,4 +62,4 @@ typings/
 
 dist/
 
-./src/db/firestore/serviceAccounts/serviceAccount.json
+src/db/firestore/serviceAccounts/serviceAccount.json
