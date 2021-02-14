@@ -3,9 +3,9 @@ import { FirestoreDocumentData } from "../commonTypes/firestoreTypes";
 export type FirestoreUsersPayments = PaymentTypes & FirestoreDocumentData;
 
 export type PaymentTypes = {
-  price: number; // 必ず数字で入力必須とする
-  paiedBy: string; // 支払ったユーザーのid
-  isAdjustmentComplete: boolean; // 精算が完了しているかどうか
+  amount: string;
+  paidBy: string; // 支払ったユーザーのid
+  isPaymentComplete: boolean;
   catogory?: Category;
   memo?: string;
   fixedCostSetting?: FixedCostSettings; // 固定費として追加するかどうか、追加するのであれば、月初め | 15日 | 月末
