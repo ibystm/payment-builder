@@ -1,15 +1,9 @@
 import { FirestoreDocumentData } from "../commonTypes/firestoreTypes";
+import { apiTypesPayment } from "../../api/apiTypes/paymentTypes";
 
-export type FirestoreUsersPayments = PaymentTypes & FirestoreDocumentData;
-
-export type PaymentTypes = {
-  amount: string;
-  paidBy: string; // 支払ったユーザーのid
+export type FirestorePayments = apiTypesPayment & {
   isPaymentComplete: boolean;
-  catogory?: Category;
-  memo?: string;
-  fixedCostSetting?: FixedCostSettings; // 固定費として追加するかどうか、追加するのであれば、月初め | 15日 | 月末
-};
+} & FirestoreDocumentData;
 
 export type Category =
   | "food" // 食費
